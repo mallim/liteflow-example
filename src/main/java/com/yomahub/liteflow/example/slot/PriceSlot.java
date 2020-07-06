@@ -9,31 +9,63 @@ import org.apache.commons.collections4.CollectionUtils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class PriceSlot extends AbsSlot {
 
+    /**
+     * 订单号
+     */
     private String orderNo;
 
+    /**
+     * 是否境外购
+     */
     private boolean oversea;
 
+    /**
+     * 商品包
+     */
     private List<ProductPackVO> productPackList;
 
+    /**
+     * 订单渠道
+     */
     private OrderChannelEnum orderChannel;
 
+    /**
+     * 会员CODE
+     */
     private String memberCode;
 
+    /**
+     * 优惠券
+     */
     private Long couponId;
 
+    /**
+     * 优惠信息
+     */
     private List<PromotionPackVO> promotionPackList;
 
+    /**
+     * 价格步骤
+     */
     private List<PriceStepVO> priceStepList = new ArrayList<>();
 
+    /**
+     * 订单原始价格
+     */
     private BigDecimal originalOrderPrice;
 
+    /**
+     * 订单最终价格
+     */
     private BigDecimal finalOrderPrice;
 
+    /**
+     * 步骤日志
+     */
     private String printLog;
 
     public PriceStepVO getLastestPriceStep(){

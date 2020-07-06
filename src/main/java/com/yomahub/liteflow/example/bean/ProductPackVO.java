@@ -8,24 +8,58 @@ import java.util.List;
 
 public class ProductPackVO {
 
+    /**
+     * 这里注意下，product和sku的关系，一个商品可能有很多规格，比如Product是"NIKE运动鞋"，SKU就是"NIKE运动鞋黑色40码"
+     */
+
+    /**
+     * 商品ID
+     */
     private Long productId;
 
+    /**
+     * 商品CODE
+     */
     private String productCode;
 
+    /**
+     * SKU ID
+     */
     private Long skuId;
 
+    /**
+     * SKU CODE
+     */
     private String skuCode;
 
+    /**
+     * SKU名称
+     */
     private String skuName;
 
+    /**
+     * 商品来源
+     */
     private SkuSourceEnum skuSource;
 
+    /**
+     * 类目
+     */
     private CategoryEnum category;
 
+    /**
+     * 售价
+     */
     private BigDecimal salePrice;
 
+    /**
+     * 数量
+     */
     private Integer count;
 
+    /**
+     * 优惠信息，一个商品可能有多个优惠信息
+     */
     private List<PromotionInfoVO> promotionList;
 
     public Long getProductId() {

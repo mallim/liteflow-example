@@ -4,12 +4,24 @@ import com.yomahub.liteflow.example.enums.PromotionTypeEnum;
 
 public class PromotionInfoVO {
 
+    /**
+     * id
+     */
     private Long id;
 
+    /**
+     * 优惠CODE
+     */
     private String promotionCode;
 
+    /**
+     * 优惠名称
+     */
     private String promotionName;
 
+    /**
+     * 优惠类型
+     */
     private PromotionTypeEnum promotionType;
 
     public PromotionInfoVO() {

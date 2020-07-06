@@ -2,23 +2,40 @@ package com.yomahub.liteflow.example.bean;
 
 import com.yomahub.liteflow.example.enums.OrderChannelEnum;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class PriceCalcReqVO {
 
     private Long id;
 
+    /**
+     * 订单号
+     */
     private String orderNo;
 
+    /**
+     * 是否境外购
+     */
     private boolean oversea;
 
+    /**
+     * 商品包
+     */
     private List<ProductPackVO> productPackList;
 
+    /**
+     * 订单渠道
+     */
     private OrderChannelEnum orderChannel;
 
+    /**
+     * 会员CODE
+     */
     private String memberCode;
 
+    /**
+     * 优惠券ID
+     */
     private Long couponId;
 
     public Long getId() {
