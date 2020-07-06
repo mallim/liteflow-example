@@ -1,5 +1,6 @@
-package com.yomahub.liteflow.example;
+package com.yomahub.liteflow.example.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.example.bean.PriceCalcReqVO;
@@ -10,25 +11,44 @@ import com.yomahub.liteflow.example.enums.OrderChannelEnum;
 import com.yomahub.liteflow.example.enums.PromotionTypeEnum;
 import com.yomahub.liteflow.example.enums.SkuSourceEnum;
 import com.yomahub.liteflow.example.slot.PriceSlot;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.stereotype.Component;
+import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
-public class TestCase implements CommandLineRunner {
+@Controller
+public class PriceExampleController {
 
     @Resource
     private FlowExecutor flowExecutor;
 
-    @Override
-    public void run(String... args) throws Exception {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String index(ModelMap modelMap){
         PriceCalcReqVO req = mockReq();
-        flowExecutor.execute("mainChain", req, PriceSlot.class);
+        String json = JSON.toJSONString(req);
+        modelMap.put("req",json);
+        return "index";
+    }
 
+    @RequestMapping(value = "/submit", method = RequestMethod.GET)
+    @ResponseBody
+    public String submit(@Nullable @RequestParam(value = "reqData")String reqData){
+        try{
+            PriceCalcReqVO req = JSON.parseObject(reqData,PriceCalcReqVO.class);
+            PriceSlot slot = flowExecutor.execute("mainChain", req, PriceSlot.class);
+            return slot.getPrintLog();
+        }catch (Throwable t){
+            t.printStackTrace();
+            return "error";
+        }
     }
 
     private PriceCalcReqVO mockReq(){
