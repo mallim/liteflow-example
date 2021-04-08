@@ -3,6 +3,8 @@ package com.yomahub.liteflow.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.yomahub.liteflow.core.FlowExecutor;
+import com.yomahub.liteflow.entity.data.LiteflowResponse;
+import com.yomahub.liteflow.entity.data.Slot;
 import com.yomahub.liteflow.example.bean.PriceCalcReqVO;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionInfoVO;
@@ -43,8 +45,8 @@ public class PriceExampleController {
     public String submit(@Nullable @RequestParam(value = "reqData")String reqData){
         try{
             PriceCalcReqVO req = JSON.parseObject(reqData,PriceCalcReqVO.class);
-            PriceSlot slot = flowExecutor.execute("mainChain", req, PriceSlot.class);
-            return slot.getPrintLog();
+            LiteflowResponse<PriceSlot> response = flowExecutor.execute("mainChain", req, PriceSlot.class);
+            return response.getSlot().getPrintLog();
         }catch (Throwable t){
             t.printStackTrace();
             return "error";
