@@ -45,7 +45,7 @@ public class PriceExampleController {
     public String submit(@Nullable @RequestParam(value = "reqData")String reqData){
         try{
             PriceCalcReqVO req = JSON.parseObject(reqData,PriceCalcReqVO.class);
-            LiteflowResponse<PriceSlot> response = flowExecutor.execute("mainChain", req, PriceSlot.class);
+            LiteflowResponse<PriceSlot> response = flowExecutor.execute2Resp("mainChain", req, PriceSlot.class);
             return response.getSlot().getPrintLog();
         }catch (Throwable t){
             t.printStackTrace();
