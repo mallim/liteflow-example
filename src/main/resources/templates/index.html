@@ -73,8 +73,9 @@
 
         $.ajax({
             url:'/submit',
-            type:'get',
-            data:{reqData : reqData},
+            type:'post',
+            contentType:'application/json',
+            data:reqData,
             success:function (data) {
                 $("#stepArea").html(data);
             }

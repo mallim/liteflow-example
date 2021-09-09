@@ -16,10 +16,7 @@ import com.yomahub.liteflow.example.slot.PriceSlot;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.math.BigDecimal;
@@ -40,9 +37,9 @@ public class PriceExampleController {
         return "index";
     }
 
-    @RequestMapping(value = "/submit", method = RequestMethod.GET)
+    @RequestMapping(value = "/submit", method = RequestMethod.POST)
     @ResponseBody
-    public String submit(@Nullable @RequestParam(value = "reqData")String reqData){
+    public String submit(@Nullable @RequestBody String reqData){
         try{
             PriceCalcReqVO req = JSON.parseObject(reqData,PriceCalcReqVO.class);
             LiteflowResponse<PriceSlot> response = flowExecutor.execute2Resp("mainChain", req, PriceSlot.class);
