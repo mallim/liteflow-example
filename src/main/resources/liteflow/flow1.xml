@@ -9,9 +9,4 @@
         <then value="postageCondCmp( postageCmp | overseaPostageCmp )"/>
         <when value="priceResultCmp, stepPrintCmp"/>
     </chain>
-
-    <chain name="promotionChain">
-        <then value="fullCutCmp, fullDiscountCmp, rushBuyCmp"/>
-    </chain>
-
 </flow>
