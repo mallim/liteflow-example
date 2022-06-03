@@ -5,7 +5,7 @@ import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionInfoVO;
 import com.yomahub.liteflow.example.bean.PromotionPackVO;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
@@ -20,11 +20,11 @@ import java.util.List;
 public class PromotionConvertCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
         List<PromotionPackVO> promotionPackList = new ArrayList<>();
 
         PromotionPackVO promotionPack = null;
-        for(ProductPackVO pack : slot.getProductPackList()){
+        for(ProductPackVO pack : context.getProductPackList()){
             if(CollectionUtils.isEmpty(pack.getPromotionList())){
                 continue;
             }
@@ -45,13 +45,13 @@ public class PromotionConvertCmp extends NodeComponent {
                 }
             }
         }
-        slot.setPromotionPackList(promotionPackList);
+        context.setPromotionPackList(promotionPackList);
     }
 
     @Override
     public boolean isAccess() {
-        PriceSlot slot = this.getSlot();
-        if(CollectionUtils.isNotEmpty(slot.getProductPackList())){
+        PriceContext context = this.getContextBean();
+        if(CollectionUtils.isNotEmpty(context.getProductPackList())){
             return true;
         }else{
             return false;

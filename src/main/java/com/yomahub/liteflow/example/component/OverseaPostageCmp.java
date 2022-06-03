@@ -3,7 +3,7 @@ package com.yomahub.liteflow.example.component;
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.example.bean.PriceStepVO;
 import com.yomahub.liteflow.example.enums.PriceTypeEnum;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
@@ -15,14 +15,14 @@ import java.math.BigDecimal;
 public class OverseaPostageCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
 
         /**这里Mock境外购运费的策略是：不管多少钱，都要加上15元运费**/
         BigDecimal postage = new BigDecimal(15);
-        BigDecimal prePrice = slot.getLastestPriceStep().getCurrPrice();
+        BigDecimal prePrice = context.getLastestPriceStep().getCurrPrice();
         BigDecimal currPrice = prePrice.add(postage);
 
-        slot.addPriceStep(new PriceStepVO(PriceTypeEnum.OVERSEAS_POSTAGE,
+        context.addPriceStep(new PriceStepVO(PriceTypeEnum.OVERSEAS_POSTAGE,
                 null,
                 prePrice,
                 currPrice.subtract(prePrice),

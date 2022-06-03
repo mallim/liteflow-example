@@ -6,7 +6,7 @@ import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionPackVO;
 import com.yomahub.liteflow.example.enums.PriceTypeEnum;
 import com.yomahub.liteflow.example.enums.PromotionTypeEnum;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class FullDiscountCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
         PromotionPackVO promotionPack = getMatchPromotion();
 
         /***这里Mock下根据优惠信息查到的满折信息为：满200，打9折***/
@@ -35,10 +35,10 @@ public class FullDiscountCmp extends NodeComponent {
             reletedProductTotalPrice = reletedProductTotalPrice.add(productPack.getSalePrice().multiply(new BigDecimal(productPack.getCount())));
         }
         if (reletedProductTotalPrice.compareTo(triggerPrice) >= 0){
-            BigDecimal prePrice = slot.getLastestPriceStep().getCurrPrice();
+            BigDecimal prePrice = context.getLastestPriceStep().getCurrPrice();
             BigDecimal currPrice = prePrice.multiply(discountRate).setScale(2, RoundingMode.HALF_UP);
 
-            slot.addPriceStep(new PriceStepVO(PriceTypeEnum.PROMOTION_DISCOUNT,
+            context.addPriceStep(new PriceStepVO(PriceTypeEnum.PROMOTION_DISCOUNT,
                     promotionPack.getId().toString(),
                     prePrice,
                     currPrice.subtract(prePrice),
@@ -60,9 +60,9 @@ public class FullDiscountCmp extends NodeComponent {
     }
 
     private PromotionPackVO getMatchPromotion(){
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
 
-        List<PromotionPackVO> matchList = slot.getPromotionPackList().stream().filter(promotionPackVO -> {
+        List<PromotionPackVO> matchList = context.getPromotionPackList().stream().filter(promotionPackVO -> {
             if(promotionPackVO.getPromotionType().equals(PromotionTypeEnum.FULL_DISCOUNT)){
                 return true;
             }else{

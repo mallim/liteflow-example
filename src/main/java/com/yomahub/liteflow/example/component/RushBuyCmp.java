@@ -6,7 +6,7 @@ import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionPackVO;
 import com.yomahub.liteflow.example.enums.PriceTypeEnum;
 import com.yomahub.liteflow.example.enums.PromotionTypeEnum;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RushBuyCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
         PromotionPackVO promotionPack = getMatchPromotion();
 
         /**
@@ -33,7 +33,7 @@ public class RushBuyCmp extends NodeComponent {
          **/
         BigDecimal rushBuyPrice = new BigDecimal(1);
 
-        BigDecimal prePrice = slot.getLastestPriceStep().getCurrPrice();
+        BigDecimal prePrice = context.getLastestPriceStep().getCurrPrice();
         BigDecimal rushBuyDiscountPrice = new BigDecimal(0);
         for(ProductPackVO productPack : promotionPack.getRelatedProductPackList()){
             rushBuyDiscountPrice = rushBuyDiscountPrice.add(productPack.getSalePrice().subtract(rushBuyPrice)
@@ -41,7 +41,7 @@ public class RushBuyCmp extends NodeComponent {
         }
         BigDecimal currPrice = prePrice.subtract(rushBuyDiscountPrice);
 
-        slot.addPriceStep(new PriceStepVO(PriceTypeEnum.PROMOTION_DISCOUNT,
+        context.addPriceStep(new PriceStepVO(PriceTypeEnum.PROMOTION_DISCOUNT,
                 promotionPack.getId().toString(),
                 prePrice,
                 currPrice.subtract(prePrice),
@@ -62,9 +62,9 @@ public class RushBuyCmp extends NodeComponent {
     }
 
     private PromotionPackVO getMatchPromotion(){
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
 
-        List<PromotionPackVO> matchList = slot.getPromotionPackList().stream().filter(promotionPackVO -> {
+        List<PromotionPackVO> matchList = context.getPromotionPackList().stream().filter(promotionPackVO -> {
             if(promotionPackVO.getPromotionType().equals(PromotionTypeEnum.RUSH_BUY)){
                 return true;
             }else{

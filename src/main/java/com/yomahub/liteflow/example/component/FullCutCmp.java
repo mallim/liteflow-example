@@ -1,19 +1,17 @@
 package com.yomahub.liteflow.example.component;
 
-import com.google.common.collect.Lists;
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.example.bean.PriceStepVO;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionPackVO;
 import com.yomahub.liteflow.example.enums.PriceTypeEnum;
 import com.yomahub.liteflow.example.enums.PromotionTypeEnum;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -23,7 +21,7 @@ import java.util.stream.Collectors;
 public class FullCutCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceSlot slot = this.getSlot();
+        PriceContext slot = this.getContextBean();
         PromotionPackVO promotionPack = getMatchPromotion();
 
         /***这里Mock下根据优惠信息查到的满减信息为：满100，减5块***/
@@ -61,9 +59,9 @@ public class FullCutCmp extends NodeComponent {
     }
 
     private PromotionPackVO getMatchPromotion(){
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
 
-        List<PromotionPackVO> matchList = slot.getPromotionPackList().stream().filter(promotionPackVO -> {
+        List<PromotionPackVO> matchList = context.getPromotionPackList().stream().filter(promotionPackVO -> {
             if(promotionPackVO.getPromotionType().equals(PromotionTypeEnum.FULL_CUT)){
                 return true;
             }else{

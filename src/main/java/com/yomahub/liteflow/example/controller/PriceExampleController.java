@@ -3,8 +3,6 @@ package com.yomahub.liteflow.example.controller;
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Lists;
 import com.yomahub.liteflow.core.FlowExecutor;
-import com.yomahub.liteflow.entity.data.LiteflowResponse;
-import com.yomahub.liteflow.entity.data.Slot;
 import com.yomahub.liteflow.example.bean.PriceCalcReqVO;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionInfoVO;
@@ -12,7 +10,8 @@ import com.yomahub.liteflow.example.enums.CategoryEnum;
 import com.yomahub.liteflow.example.enums.OrderChannelEnum;
 import com.yomahub.liteflow.example.enums.PromotionTypeEnum;
 import com.yomahub.liteflow.example.enums.SkuSourceEnum;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
+import com.yomahub.liteflow.flow.LiteflowResponse;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -42,8 +41,9 @@ public class PriceExampleController {
     public String submit(@Nullable @RequestBody String reqData){
         try{
             PriceCalcReqVO req = JSON.parseObject(reqData,PriceCalcReqVO.class);
-            LiteflowResponse<PriceSlot> response = flowExecutor.execute2Resp("mainChain", req, PriceSlot.class);
-            return response.getSlot().getPrintLog();
+            LiteflowResponse<PriceContext> response = flowExecutor.execute2Resp("mainChain", req, PriceContext.class);
+
+            return response.getContextBean().getPrintLog();
         }catch (Throwable t){
             t.printStackTrace();
             return "error";

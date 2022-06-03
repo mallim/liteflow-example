@@ -2,7 +2,7 @@ package com.yomahub.liteflow.example.component;
 
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.example.bean.PriceCalcReqVO;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,14 +13,14 @@ public class SlotInitCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
         //把主要参数冗余到slot里
-        PriceCalcReqVO req = this.getSlot().getRequestData();
-        PriceSlot priceSlot = this.getSlot();
-        priceSlot.setOrderNo(req.getOrderNo());
-        priceSlot.setOversea(req.isOversea());
-        priceSlot.setMemberCode(req.getMemberCode());
-        priceSlot.setOrderChannel(req.getOrderChannel());
-        priceSlot.setProductPackList(req.getProductPackList());
-        priceSlot.setCouponId(req.getCouponId());
+        PriceCalcReqVO req = this.getRequestData();
+        PriceContext context = this.getContextBean();
+        context.setOrderNo(req.getOrderNo());
+        context.setOversea(req.isOversea());
+        context.setMemberCode(req.getMemberCode());
+        context.setOrderChannel(req.getOrderChannel());
+        context.setProductPackList(req.getProductPackList());
+        context.setCouponId(req.getCouponId());
     }
 
     @Override

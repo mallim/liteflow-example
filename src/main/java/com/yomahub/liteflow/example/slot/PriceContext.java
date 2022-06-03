@@ -1,6 +1,5 @@
 package com.yomahub.liteflow.example.slot;
 
-import com.yomahub.liteflow.entity.data.AbsSlot;
 import com.yomahub.liteflow.example.bean.PriceStepVO;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionPackVO;
@@ -11,7 +10,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PriceSlot extends AbsSlot {
+public class PriceContext {
 
     /**
      * 订单号

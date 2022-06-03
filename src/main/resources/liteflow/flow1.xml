@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <flow>
+    <nodes>
+        <node id="checkCmp" class="com.yomahub.liteflow.example.component.CheckCmp"/>
+    </nodes>
+
     <chain name="mainChain">
         <then value="checkCmp, slotInitCmp, priceStepInitCmp"/>
         <then value="promotionConvertCmp"/>

@@ -3,7 +3,7 @@ package com.yomahub.liteflow.example.component;
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.example.bean.PriceStepVO;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,12 +23,12 @@ public class StepPrintCmp extends NodeComponent {
 
     @Override
     public void process() throws Exception {
-        PriceSlot slot = this.getSlot();
+        PriceContext context = this.getContextBean();
         StringBuilder logStr = new StringBuilder();
 
-        logStr.append(MessageFormat.format("订单号[{0}]的价格计算的明细结果:\n", slot.getOrderNo()));
+        logStr.append(MessageFormat.format("订单号[{0}]的价格计算的明细结果:\n", context.getOrderNo()));
         logStr.append("|====================================================================\n");
-        for(ProductPackVO pack : slot.getProductPackList()){
+        for(ProductPackVO pack : context.getProductPackList()){
             logStr.append(MessageFormat.format("|   {0} [{1}] [{2}]   {3} X {4}\n",
                     pack.getSkuName(),
                     pack.getProductCode(),
@@ -38,19 +38,19 @@ public class StepPrintCmp extends NodeComponent {
         }
 
         logStr.append("|====================================================================\n");
-        for(PriceStepVO step : slot.getPriceStepList()){
+        for(PriceStepVO step : context.getPriceStepList()){
             logStr.append(MessageFormat.format("|   [{0} : {1}]\n",step.getStepDesc(),step.getPriceChange().setScale(2, BigDecimal.ROUND_HALF_UP).toString()));
         }
-        logStr.append(MessageFormat.format("|   [最终价 : {0}]\n",slot.getFinalOrderPrice().setScale(2, BigDecimal.ROUND_HALF_UP).toString()));
+        logStr.append(MessageFormat.format("|   [最终价 : {0}]\n",context.getFinalOrderPrice().setScale(2, BigDecimal.ROUND_HALF_UP).toString()));
         logStr.append("|====================================================================\n");
         log.info(logStr.toString());
-        slot.setPrintLog(logStr.toString());
+        context.setPrintLog(logStr.toString());
     }
 
     @Override
     public boolean isAccess() {
-        PriceSlot slot = this.getSlot();
-        if(CollectionUtils.isNotEmpty(slot.getPriceStepList())){
+        PriceContext context = this.getContextBean();
+        if(CollectionUtils.isNotEmpty(context.getPriceStepList())){
             return true;
         }else{
             return false;

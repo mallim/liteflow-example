@@ -1,7 +1,7 @@
 package com.yomahub.liteflow.example.component;
 
 import com.yomahub.liteflow.core.NodeCondComponent;
-import com.yomahub.liteflow.example.slot.PriceSlot;
+import com.yomahub.liteflow.example.slot.PriceContext;
 import org.springframework.stereotype.Component;
 
 /**
@@ -11,9 +11,9 @@ import org.springframework.stereotype.Component;
 public class PostageCondCmp extends NodeCondComponent {
     @Override
     public String processCond() throws Exception {
-        PriceSlot priceSlot = this.getSlot();
+        PriceContext context = this.getContextBean();
         //根据参数oversea来判断是否境外购，转到相应的组件
-        boolean oversea = priceSlot.isOversea();
+        boolean oversea = context.isOversea();
         if(oversea){
             return "overseaPostageCmp";
         }else{
