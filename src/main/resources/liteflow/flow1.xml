@@ -11,6 +11,6 @@
         <then value="promotionChain"/>
         <then value="couponCmp"/>
         <then value="postageCondCmp( postageCmp | overseaPostageCmp )"/>
-        <when value="priceResultCmp, stepPrintCmp"/>
+        <then value="priceResultCmp, stepPrintCmp"/>
     </chain>
 </flow>
