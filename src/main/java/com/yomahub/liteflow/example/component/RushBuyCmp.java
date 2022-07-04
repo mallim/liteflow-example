@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 public class RushBuyCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         PromotionPackVO promotionPack = getMatchPromotion();
 
         /**
@@ -62,7 +62,7 @@ public class RushBuyCmp extends NodeComponent {
     }
 
     private PromotionPackVO getMatchPromotion(){
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
 
         List<PromotionPackVO> matchList = context.getPromotionPackList().stream().filter(promotionPackVO -> {
             if(promotionPackVO.getPromotionType().equals(PromotionTypeEnum.RUSH_BUY)){

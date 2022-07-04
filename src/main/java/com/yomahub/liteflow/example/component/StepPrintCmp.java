@@ -23,7 +23,7 @@ public class StepPrintCmp extends NodeComponent {
 
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         StringBuilder logStr = new StringBuilder();
 
         logStr.append(MessageFormat.format("订单号[{0}]的价格计算的明细结果:\n", context.getOrderNo()));
@@ -49,7 +49,7 @@ public class StepPrintCmp extends NodeComponent {
 
     @Override
     public boolean isAccess() {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         if(CollectionUtils.isNotEmpty(context.getPriceStepList())){
             return true;
         }else{

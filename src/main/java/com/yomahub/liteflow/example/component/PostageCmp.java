@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class PostageCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
 
         /**这里Mock运费的策略是：满99免运费，不满99需要10块钱运费**/
         BigDecimal triggerPrice = new BigDecimal(99);

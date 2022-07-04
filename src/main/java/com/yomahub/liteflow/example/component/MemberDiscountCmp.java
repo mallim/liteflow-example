@@ -18,7 +18,7 @@ import java.math.RoundingMode;
 public class MemberDiscountCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         String memberCode = context.getMemberCode();
 
         /***这里Mock下通过memberCode去查会员等级表然后获取的会员折扣为9折的代码***/
@@ -40,7 +40,7 @@ public class MemberDiscountCmp extends NodeComponent {
 
     @Override
     public boolean isAccess() {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         if(CollectionUtils.isNotEmpty(context.getProductPackList())
                 && StringUtils.isNotBlank(context.getMemberCode())){
             return true;

@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class OverseaPostageCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
 
         /**这里Mock境外购运费的策略是：不管多少钱，都要加上15元运费**/
         BigDecimal postage = new BigDecimal(15);

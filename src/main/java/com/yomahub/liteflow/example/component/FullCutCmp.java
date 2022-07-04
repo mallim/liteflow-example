@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 public class FullCutCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext slot = this.getContextBean();
+        PriceContext slot = this.getContextBean(PriceContext.class);
         PromotionPackVO promotionPack = getMatchPromotion();
 
         /***这里Mock下根据优惠信息查到的满减信息为：满100，减5块***/
@@ -59,7 +59,7 @@ public class FullCutCmp extends NodeComponent {
     }
 
     private PromotionPackVO getMatchPromotion(){
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
 
         List<PromotionPackVO> matchList = context.getPromotionPackList().stream().filter(promotionPackVO -> {
             if(promotionPackVO.getPromotionType().equals(PromotionTypeEnum.FULL_CUT)){

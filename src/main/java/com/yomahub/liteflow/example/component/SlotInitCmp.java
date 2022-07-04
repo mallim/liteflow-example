@@ -14,7 +14,7 @@ public class SlotInitCmp extends NodeComponent {
     public void process() throws Exception {
         //把主要参数冗余到slot里
         PriceCalcReqVO req = this.getRequestData();
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         context.setOrderNo(req.getOrderNo());
         context.setOversea(req.isOversea());
         context.setMemberCode(req.getMemberCode());

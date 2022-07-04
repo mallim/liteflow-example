@@ -20,7 +20,7 @@ import java.util.List;
 public class PromotionConvertCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         List<PromotionPackVO> promotionPackList = new ArrayList<>();
 
         PromotionPackVO promotionPack = null;
@@ -50,7 +50,7 @@ public class PromotionConvertCmp extends NodeComponent {
 
     @Override
     public boolean isAccess() {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         if(CollectionUtils.isNotEmpty(context.getProductPackList())){
             return true;
         }else{

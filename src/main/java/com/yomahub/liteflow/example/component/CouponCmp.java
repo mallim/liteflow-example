@@ -15,7 +15,7 @@ import java.math.BigDecimal;
 public class CouponCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
 
         /**这里Mock下根据couponId取到的优惠卷面值为15元**/
         Long couponId = context.getCouponId();
@@ -34,7 +34,7 @@ public class CouponCmp extends NodeComponent {
 
     @Override
     public boolean isAccess() {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         if(context.getCouponId() != null){
             return true;
         }else{

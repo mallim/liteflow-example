@@ -18,7 +18,7 @@ import java.util.List;
 public class PriceStepInitCmp extends NodeComponent {
     @Override
     public void process() throws Exception {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
 
         //初始化价格步骤
         List<ProductPackVO> packList = context.getProductPackList();
@@ -37,7 +37,7 @@ public class PriceStepInitCmp extends NodeComponent {
 
     @Override
     public boolean isAccess() {
-        PriceContext context = this.getContextBean();
+        PriceContext context = this.getContextBean(PriceContext.class);
         if(CollectionUtils.isNotEmpty(context.getProductPackList())){
             return true;
         }else{
