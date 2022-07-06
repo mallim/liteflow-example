@@ -1,7 +1,7 @@
 package com.yomahub.liteflow.example.controller;
 
+import cn.hutool.core.collection.ListUtil;
 import com.alibaba.fastjson.JSON;
-import com.google.common.collect.Lists;
 import com.yomahub.liteflow.core.FlowExecutor;
 import com.yomahub.liteflow.example.bean.PriceCalcReqVO;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
@@ -70,7 +70,7 @@ public class PriceExampleController {
         productPack.setCategory(CategoryEnum.CLOTHES);
         productPack.setSalePrice(new BigDecimal("139.00"));
         productPack.setCount(2);
-        productPack.setPromotionList(Lists.newArrayList(
+        productPack.setPromotionList(ListUtil.toList(
                 new PromotionInfoVO(1001L,"PM1001","夏季满减活动", PromotionTypeEnum.FULL_CUT),
                 new PromotionInfoVO(1002L,"PM1002","夏季满折活动", PromotionTypeEnum.FULL_DISCOUNT)));
         productPackList.add(productPack);
@@ -85,7 +85,7 @@ public class PriceExampleController {
         productPack.setCategory(CategoryEnum.CLOTHES);
         productPack.setSalePrice(new BigDecimal("59.00"));
         productPack.setCount(3);
-        productPack.setPromotionList(Lists.newArrayList(
+        productPack.setPromotionList(ListUtil.toList(
                 new PromotionInfoVO(1001L,"PM1001","夏季满减活动", PromotionTypeEnum.FULL_CUT)));
         productPackList.add(productPack);
 
@@ -99,7 +99,7 @@ public class PriceExampleController {
         productPack.setCategory(CategoryEnum.DAILY_USE);
         productPack.setSalePrice(new BigDecimal("28.00"));
         productPack.setCount(5);
-        productPack.setPromotionList(Lists.newArrayList(
+        productPack.setPromotionList(ListUtil.toList(
                 new PromotionInfoVO(1002L,"PM1002","夏季满折活动", PromotionTypeEnum.FULL_DISCOUNT)));
         productPackList.add(productPack);
 
@@ -113,7 +113,7 @@ public class PriceExampleController {
         productPack.setCategory(CategoryEnum.DAILY_USE);
         productPack.setSalePrice(new BigDecimal("30"));
         productPack.setCount(2);
-        productPack.setPromotionList(Lists.newArrayList(
+        productPack.setPromotionList(ListUtil.toList(
                 new PromotionInfoVO(1003L,"PM1003","618抢购活动", PromotionTypeEnum.RUSH_BUY)));
         productPackList.add(productPack);
 

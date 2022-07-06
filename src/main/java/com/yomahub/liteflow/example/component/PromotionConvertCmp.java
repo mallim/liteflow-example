@@ -1,6 +1,6 @@
 package com.yomahub.liteflow.example.component;
 
-import com.google.common.collect.Lists;
+import cn.hutool.core.collection.ListUtil;
 import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.bean.PromotionInfoVO;
@@ -40,7 +40,7 @@ public class PromotionConvertCmp extends NodeComponent {
                     }
                 }else{
                     BeanUtils.copyProperties(promotion,promotionPack);
-                    promotionPack.setRelatedProductPackList(Lists.newArrayList(pack));
+                    promotionPack.setRelatedProductPackList(ListUtil.toList(pack));
                     promotionPackList.add(promotionPack);
                 }
             }
