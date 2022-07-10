@@ -7,6 +7,6 @@
             promotionChain, couponCmp,
             SWITCH(postageCondCmp).to(postageCmp, overseaPostageCmp),
             priceResultCmp, stepPrintCmp
-        )
+        );
     </chain>
 </flow>
