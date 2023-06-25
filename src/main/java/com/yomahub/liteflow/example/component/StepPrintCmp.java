@@ -4,6 +4,8 @@ import com.yomahub.liteflow.core.NodeComponent;
 import com.yomahub.liteflow.example.bean.PriceStepVO;
 import com.yomahub.liteflow.example.bean.ProductPackVO;
 import com.yomahub.liteflow.example.slot.PriceContext;
+import com.yomahub.liteflow.log.LFLog;
+import com.yomahub.liteflow.log.LFLoggerManager;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +21,7 @@ import java.text.MessageFormat;
 @Component("stepPrintCmp")
 public class StepPrintCmp extends NodeComponent {
 
-    private Logger log = LoggerFactory.getLogger(getClass());
+    private LFLog log = LFLoggerManager.getLogger(getClass());
 
     @Override
     public void process() throws Exception {
