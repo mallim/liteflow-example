@@ -19,7 +19,6 @@ public class CheckCmp extends NodeComponent {
         //拿到请求参数
         PriceCalcReqVO req = this.getSlot().getRequestData();
 
-        /***这里Mock参数验证过程***/
-        log.info("参数验证完成");
+//        log.info("参数验证完成");
     }
 }
