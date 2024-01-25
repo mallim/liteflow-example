@@ -1,0 +1,31 @@
+POST http://localhost:8581/submit
+Content-Type: application/json
+
+{
+  "id": 1,
+  "orderNo": "123456",
+  "oversea": false,
+  "orderChannel": "APP",
+  "memberCode": "member-code-1",
+  "couponId": 1,
+  "productPackList": [{
+    "productId": 1,
+    "productCode": "product-code-1",
+    "skuId": 1,
+    "skuCode": "sku-code-1",
+    "skuName": "sku-name-1",
+    "skuSource": "RAW",
+    "category": "FOOD",
+    "orderChannel": "APP",
+    "memberCode": "member-code-1",
+    "couponId": 1,
+    "salePrice": 100,
+    "count": 1,
+    "promotionList": [{
+      "id": 1,
+      "promotionCode": "promotion-code-1",
+      "promotionName": "promotion-name-1",
+      "promotionType": "FULL_CUT"
+    }]
+  }]
+}
